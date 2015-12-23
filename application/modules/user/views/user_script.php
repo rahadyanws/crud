@@ -10,7 +10,7 @@
   <div class="modal-dialog">
 	<div class="modal-content">
 	  <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		<h4 class="modal-title" id="modal-title">Add User</h4>
 	  </div>
 	  <div class="modal-body">
@@ -55,7 +55,7 @@
         </div>
 		  </div><!-- /.box-body -->
 		  <div class="box-footer">
-			<button type="submit" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
+			<button type="submit" id="cancel" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
 			<button type="submit" class="btn btn-primary btn-flat pull-right">Save</button>
 		  </div><!-- /.box-footer -->
 		</form>
@@ -155,6 +155,27 @@ $('#table_user tbody').on('click', '.delete_user', function() {
         }
       });
     }
+  });
+
+function refresh() {
+  $("#note_edit").html(null);
+  $("#modal-title").html('Add User');
+  $('#user_id').val(null);
+  $('#type').val("add");
+  $('#firstname').val(null);
+  $('#lastname').val(null);
+  $('#email').val(null);
+}
+
+$(document)
+  .off('click', '#close')
+  .on('click', '#close', function() {
+      refresh();
+  });
+  $(document)
+  .off('click', '#cancel')
+  .on('click', '#cancel', function() {
+      refresh();
   });
 
 function renderEditUser(user) {

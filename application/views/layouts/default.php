@@ -347,5 +347,8 @@ partials
       <?php if(isset($template['partials']['user_script'])){ 
         echo $template['partials']['user_script'];
       }?>
+      <?php if(isset($template['partials']['category_script'])){ 
+        echo $template['partials']['category_script'];
+      }?>
   </body>
 </html>

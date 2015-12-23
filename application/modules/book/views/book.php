@@ -23,7 +23,7 @@
           </div> -->
         </div>
         <div class="box-body">
-          <button type="button" class="btn btn-primary btn-flat btn-sm" data-toggle="modal" data-target="#add-book"><i class="fa fa-plus-circle"></i> Add Book</button> <br><br>
+          <button id="add" type="button" class="btn btn-primary btn-flat btn-sm" data-toggle="modal" data-target="#add-book"><i class="fa fa-plus-circle"></i> Add Book</button> <br><br>
 
           <div class="table-responsive">
             <table id="table_book" class="table table-bordered table-striped">
@@ -31,6 +31,7 @@
               <tr>
                 <th>Book Code</th>
                 <th>Title</th>
+                <th>Category</th>
                 <th>Publisher</th>
                 <th>Author</th>
                 <th>Publication_year</th>
@@ -43,14 +44,14 @@
                 <tr>          
                   <td><?php echo $v->book_code;?></td>
                   <td><?php echo $v->title;?></td>
+                  <td><?php echo $v->category_name;?></td>
                   <td><?php echo $v->publisher;?></td>
                   <td><?php echo $v->author;?></td>
                   <td><?php echo $v->publication_year;?></td>
                   <td><?php echo $v->stock;?></td>
                   <td>
-                    
                     <button type="button" class="edit_book btn btn-info btn-flat btn-sm" data-id="<?php echo $v->book_id;?>"><i class="fa fa-pencil"></i> Edit</button>
-                            <button type="button" class="delete_book btn btn-danger btn-flat btn-sm" data-id="<?php echo $v->book_id;?>"><i class="fa fa-trash"></i> Delete</button>
+                    <button type="button" class="delete_book btn btn-danger btn-flat btn-sm" data-id="<?php echo $v->book_id;?>"><i class="fa fa-trash"></i> Delete</button>
                   </td>
                 </tr>
               <?php  }  ?>   
@@ -59,6 +60,7 @@
                 <tr>
                   <th>Book Code</th>
                   <th>Title</th>
+                  <th>Category</th>
                   <th>Publisher</th>
                   <th>Author</th>
                   <th>Publication_year</th>

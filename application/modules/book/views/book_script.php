@@ -1,8 +1,6 @@
 <script type="text/javascript">
 	$(document ).ready(function() {
-		$('#table_book').DataTable({
-			'order' : [[4,'desc']]
-		});
+		$('#table_book').DataTable();
 	});  
 </script>
 
@@ -10,7 +8,7 @@
   <div class="modal-dialog">
 	<div class="modal-content">
 	  <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		<h4 class="modal-title" id="modal-title">Add Book</h4>
 	  </div>
 	  <div class="modal-body">
@@ -30,6 +28,14 @@
 				<input type="text" class="form-control" name="title" id="title" placeholder="Title" required>
 			  </div>
 			</div>
+      <div class="form-group">
+          <label for="category_id" class="col-sm-2 control-label">Category</label>
+          <div class="col-sm-10">
+            <select id="category_id" name="category_id" class="form-control" required>
+            <option value="" >Select Category</option>
+            </select>
+          </div>
+        </div>
 			<div class="form-group">
 			  <label for="publisher" class="col-sm-2 control-label">Publisher</label>
 			  <div class="col-sm-10">
@@ -58,7 +64,7 @@
 			</div>
 		  </div><!-- /.box-body -->
 		  <div class="box-footer">
-			<button type="submit" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
+			<button type="submit" id="cancel" class="btn btn-default btn-flat" data-dismiss="modal">Cancel</button>
 			<button type="submit" class="btn btn-primary btn-flat pull-right">Save</button>
 		  </div><!-- /.box-footer -->
 		</form>
@@ -109,7 +115,7 @@ $(document).ready(function() {
   });
 
   $('#table_book tbody').on('click', '.edit_book', function() {
-    $("#modal-title").html('Edit User');
+    $("#modal-title").html('Edit Book');
     $("#password").removeAttr('required');
     $("#add-book").modal('show');
     var book_id = $(this).data("id");
@@ -123,6 +129,23 @@ $(document).ready(function() {
       success: function(data, textStatus, jqXHR) {
         if (data.status == true) {
           renderEditBook(data.message);
+          renderEditCategory(data.message);
+        } else {
+          alert(data.message);
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert("failed");
+      }
+    });
+
+    $.ajax({
+      type: 'POST',
+      dataType: "json",
+      url: "<?php echo base_url('category/getAll');?>",
+      success: function(data, textStatus, jqXHR) {
+        if (data.status == true) {
+          renderEditCategory(data.message);
         } else {
           alert(data.message);
         }
@@ -133,6 +156,65 @@ $(document).ready(function() {
     });
   });
 });
+
+$(document)
+  .off('click', '#add')
+  .on('click', '#add', function() {
+     $("#modal-title").html('Add Book');
+      $("#password").removeAttr('required');
+      $("#add-book").modal('show');
+      $.ajax({
+        type: 'POST',
+        dataType: "json",
+        url: "<?php echo base_url('category/getAll');?>",
+        success: function(data, textStatus, jqXHR) {
+          if (data.status == true) {
+            renderEditCategory(data.message);
+          } else {
+            alert(data.message);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert("failed");
+        }
+      });
+  });
+function refresh() {
+  $('#book_id').val(null);
+  $('#type').val(null);
+  $('#book_code').val(null);
+  $('#title').val(null);
+  $('#publisher').val(null);
+  $('#author').val(null);
+  $('#publication_year').val(null);
+  $('#stock').val(null);
+  $.ajax({
+    type: 'POST',
+    dataType: "json",
+    url: "<?php echo base_url('category/getAll');?>",
+    success: function(data, textStatus, jqXHR) {
+      if (data.status == true) {
+        renderEditCategory(data.message);
+      } else {
+        alert(data.message);
+      }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      alert("failed");
+    }
+  });
+}
+
+$(document)
+  .off('click', '#close')
+  .on('click', '#close', function() {
+      refresh();
+  });
+  $(document)
+  .off('click', '#cancel')
+  .on('click', '#cancel', function() {
+      refresh();
+  });
 
 $('#table_book tbody').on('click', '.delete_book', function() {
     var book_id = $(this).data("id");
@@ -168,5 +250,13 @@ function renderEditBook(book) {
   $('#author').val(book[0].author);
   $('#publication_year').val(book[0].publication_year);
   $('#stock').val(book[0].stock);
+}
+
+function renderEditCategory(category) {
+  var options = '';
+  for (var i = 0; i < category.length; i++) {
+       options += '<option value='+category[i].category_id+'>' + category[i].category_name + '</option>';
+  }
+  $("#category_id").html(options);
 }
 </script>

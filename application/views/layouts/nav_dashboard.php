@@ -23,6 +23,7 @@
       <li class="header">MAIN NAVIGATION</li>
       <li><a href="<?php echo base_url('dashboard');?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
       <li><a href="<?php echo base_url('book');?>"><i class="fa fa-book"></i> <span>Book</span></a></li>
+      <li><a href="<?php echo base_url('category');?>"><i class="fa fa-book"></i> <span>Category</span></a></li>
       <li><a href="<?php echo base_url('user');?>"><i class="fa fa-users"></i> <span>User</span></a></li>
     </ul>
   </section>

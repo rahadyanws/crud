@@ -38,6 +38,7 @@ class Book extends MX_Controller
     $this->form_validation->set_rules('author', 'Author', 'required');
     $this->form_validation->set_rules('publication_year', 'Publication Year', 'required');
     $this->form_validation->set_rules('stock', 'Stock', 'required');
+    $this->form_validation->set_rules('category_id', 'Category', 'required');
     if ($this->form_validation->run() == FALSE) {
       $res = array('status' => false, 'message' => validation_errors());
       echo json_encode($res);
@@ -47,6 +48,7 @@ class Book extends MX_Controller
       $createBook = array(
         'book_code' => $post['book_code'], 
         'title' => $post['title'], 
+        'category_id' => $post['category_id'], 
         'publisher' => $post['publisher'], 
         'author' => $post['author'], 
         'publication_year' => $post['publication_year'],
@@ -86,6 +88,7 @@ class Book extends MX_Controller
     $this->form_validation->set_rules('author', 'Author', 'required');
     $this->form_validation->set_rules('publication_year', 'Publication Year', 'required');
     $this->form_validation->set_rules('stock', 'Stock', 'required');
+    $this->form_validation->set_rules('category_id', 'Category', 'required');
     if ($this->form_validation->run() == FALSE) {
       $res = array('status' => false, 'message' => validation_errors());
       echo json_encode($res);
@@ -95,6 +98,7 @@ class Book extends MX_Controller
       $updateBook = array(
         'book_code' => $post['book_code'], 
         'title' => $post['title'], 
+        'category_id' => $post['category_id'], 
         'publisher' => $post['publisher'], 
         'author' => $post['author'], 
         'publication_year' => $post['publication_year'],
